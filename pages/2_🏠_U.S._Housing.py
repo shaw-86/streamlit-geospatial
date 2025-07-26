@@ -26,12 +26,14 @@ st.sidebar.info(
     """
 )
 
-STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / "static"
-# We create a downloads directory within the streamlit static asset directory
-# and we write output files to it
-DOWNLOADS_PATH = STREAMLIT_STATIC_PATH / "downloads"
-if not DOWNLOADS_PATH.is_dir():
-    DOWNLOADS_PATH.mkdir()
+# STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / "static"
+# # We create a downloads directory within the streamlit static asset directory
+# # and we write output files to it
+# DOWNLOADS_PATH = STREAMLIT_STATIC_PATH / "downloads"
+# if not DOWNLOADS_PATH.is_dir():
+#     DOWNLOADS_PATH.mkdir()
+DOWNLOADS_PATH = pathlib.Path(tempfile.gettempdir()) / "streamlit_downloads"
+DOWNLOADS_PATH.mkdir(exist_ok=True)
 
 # Data source: https://www.realtor.com/research/data/
 # link_prefix = "https://econdata.s3-us-west-2.amazonaws.com/Reports/"
