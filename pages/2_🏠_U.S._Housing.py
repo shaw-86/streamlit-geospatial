@@ -1,6 +1,6 @@
 import datetime
 import os
-# import pathlib
+import pathlib
 import tempfile
 import requests
 import zipfile
@@ -33,8 +33,19 @@ st.sidebar.info(
 # DOWNLOADS_PATH = STREAMLIT_STATIC_PATH / "downloads"
 # if not DOWNLOADS_PATH.is_dir():
 #     DOWNLOADS_PATH.mkdir()
-DOWNLOADS_PATH = pathlib.Path(tempfile.gettempdir()) / "streamlit_downloads"
-DOWNLOADS_PATH.mkdir(exist_ok=True)
+
+
+# 创建临时目录（系统会负责清理）
+DOWNLOADS_PATH = pathlib.Path(tempfile.mkdtemp())
+
+# 示例：创建一个文件
+file_path = DOWNLOADS_PATH / "example.txt"
+file_path.write_text("Hello from Streamlit!")
+
+# Streamlit 下载按钮（假设你已 import streamlit as st）
+with open(file_path, "rb") as f:
+    st.download_button("📥 下载文件", data=f, file_name="example.txt")
+
 
 # Data source: https://www.realtor.com/research/data/
 # link_prefix = "https://econdata.s3-us-west-2.amazonaws.com/Reports/"
